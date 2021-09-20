@@ -6,8 +6,9 @@ COPY /client .
 RUN npm build
 
 FROM golang:bullseye as back
-COPY /go-server .
-RUN go build /go-server/main.go
+WORKDIR /app
+COPY . .
+RUN go build go-server/main.go
 
 
 FROM alpine:latest
@@ -21,5 +22,6 @@ COPY --from=back /go-server/main /src
 WORKDIR /src
 
 EXPOSE 3000
+EXPOSE 8080
 
 CMD [ "./main" ]
