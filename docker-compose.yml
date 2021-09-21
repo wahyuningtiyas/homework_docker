@@ -1,0 +1,16 @@
+version: "3.4"
+
+services: 
+  database:
+    image: mongo:4.2.16
+    restart: always
+  
+  app:
+    image: server
+    restart: always
+    ports: 
+      - '8080:8080'
+    environment: 
+      DB_URI: mongodb://mongo:27017/
+      DB_NAME: test
+      DB_COLLECTION_NAME: todolist
